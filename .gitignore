@@ -9,3 +9,6 @@ research/raw/
 
 # MCP config (contains API keys)
 .mcp.json
+
+# Dev mock data (contains API keys)
+dev/mock-data.js
