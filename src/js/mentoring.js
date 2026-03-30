@@ -98,17 +98,19 @@
   function renderHero(contact) {
     var greeting = '';
     if (contact && contact.first_name) {
-      greeting = '<p class="mt-4 text-base opacity-80">Welcome, ' +
+      greeting = '<p class="mt-5 text-base font-medium" style="color:#91CFAA; opacity:0.9;">Welcome, ' +
         utils.escapeHtml(contact.first_name) + '.</p>';
     }
-    return '<section class="rounded-xl px-6 py-16 sm:py-20 mb-10 text-white text-center" ' +
-      'style="background:var(--brand-primary-dark);">' +
+    return '<section class="px-6 pt-14 pb-16 sm:pt-20 sm:pb-20 mb-10 text-white text-center" ' +
+      'style="background:#1A3C36; border-radius:12px;">' +
       '<div class="max-w-3xl mx-auto">' +
-      '<h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-4" ' +
-      'style="font-family:var(--font-heading); color:var(--brand-primary-light);">' +
+      '<p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#FFC709;">Seed Northern Rivers</p>' +
+      '<h1 class="font-bold leading-tight mb-5" ' +
+      'style="font-family:var(--font-heading); font-size:clamp(2.2rem,5vw,3.5rem); color:#ffffff;">' +
       'Changemaker Collective<br>Mentoring Program' +
       '</h1>' +
-      '<p class="text-lg sm:text-xl" style="color:var(--brand-primary-light); opacity:0.85;">' +
+      '<div style="width:48px;height:3px;background:#FFC709;margin:0 auto 1.5rem;border-radius:2px;"></div>' +
+      '<p class="text-lg sm:text-xl" style="color:#91CFAA; max-width:600px; margin:0 auto;">' +
       'Growing capacity, confidence and connection — from the ground up' +
       '</p>' +
       greeting +
@@ -128,8 +130,8 @@
   function renderWhoItsFor(isEligible) {
     var eligibilityBadge = '';
     if (isEligible) {
-      eligibilityBadge = '<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-6" ' +
-        'style="background:var(--brand-success-bg); color:var(--brand-primary-dark); border:1px solid var(--brand-primary-light);">' +
+      eligibilityBadge = '<div class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold mb-6" ' +
+        'style="background:#FFC709; color:#1A3C36; border-radius:30px;">' +
         '<span>&#10003;</span> You\'re eligible for this program' +
         '</div>';
     }
@@ -181,8 +183,8 @@
   }
 
   function renderWhatMentoringIsNot() {
-    return '<section class="mb-10 rounded-xl shadow-sm border p-8" ' +
-      'style="background:var(--brand-error-bg); border-color:#fca5a5;">' +
+    return '<section class="mb-10 p-8" ' +
+      'style="background:var(--brand-error-bg); border-radius:12px; border-left:4px solid var(--brand-error);">' +
       '<h2 class="text-2xl font-bold mb-4" ' +
       'style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
       'What Mentoring Is Not' +
@@ -229,15 +231,16 @@
   }
 
   function renderWhyThisMatters() {
-    return '<section class="mb-10 rounded-xl px-8 py-10" ' +
-      'style="background:var(--brand-primary-dark); color:white;">' +
-      '<h2 class="text-2xl font-bold mb-4" ' +
-      'style="font-family:var(--font-heading); color:var(--brand-primary-light);">' +
-      'Why This Matters' +
+    return '<section class="mb-10 px-8 py-12" ' +
+      'style="background:#1A3C36; color:white; border-radius:12px;">' +
+      '<p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#FFC709;">Why It Matters</p>' +
+      '<h2 class="text-3xl font-bold mb-6" ' +
+      'style="font-family:var(--font-heading); color:#ffffff;">' +
+      'Nurturing the people behind the change' +
       '</h2>' +
-      '<p class="mb-4 opacity-90">Across the Northern Rivers, changemakers are carrying enormous responsibility with limited resources — often navigating complex systems while responding to climate disruption, funding uncertainty, and community need.</p>' +
-      '<p class="mb-6 opacity-90">By pairing pooled community funding with relational support, we\'re not just backing projects — we\'re nurturing the people and connections that make lasting, systemic change possible.</p>' +
-      '<ul class="space-y-3">' +
+      '<p class="mb-4 text-base leading-relaxed" style="color:#91CFAA;">Across the Northern Rivers, changemakers are carrying enormous responsibility with limited resources — often navigating complex systems while responding to climate disruption, funding uncertainty, and community need.</p>' +
+      '<p class="mb-8 text-base leading-relaxed" style="color:#91CFAA;">By pairing pooled community funding with relational support, we\'re not just backing projects — we\'re nurturing the people and connections that make lasting, systemic change possible.</p>' +
+      '<ul class="space-y-4">' +
       whyItem('Strengthen the foundations of changemakers and their organisations') +
       whyItem('Reduce isolation and burnout among changemakers') +
       whyItem('Grow skills, confidence, and collective capacity') +
@@ -269,29 +272,29 @@
         '</h2>' +
         '<p class="mb-6" style="color:var(--brand-text-muted);">If you\'d like to confirm or step back, just let us know.</p>' +
         '<div class="flex flex-wrap justify-center gap-3">' +
-        '<button data-interest="Yes" class="px-6 py-3 rounded-lg font-semibold text-white" style="background:var(--brand-primary);">Yes, count me in</button>' +
-        '<button data-interest="Not Right Now" class="px-6 py-3 rounded-lg font-semibold border" style="border-color:var(--brand-border); color:var(--brand-text-muted);">Not right now</button>' +
+        btnPrimary('Yes', 'Yes, count me in') +
+        btnOutline('Not Right Now', 'Not right now') +
         '</div>';
     } else if (interest === 'Not Right Now') {
       inner = '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
         'No problem — thanks for letting us know.' +
         '</h2>' +
         '<p class="mb-6" style="color:var(--brand-text-muted);">The program will still be here when the time is right.</p>' +
-        '<button data-interest="Maybe" class="px-6 py-3 rounded-lg font-semibold border" style="border-color:var(--brand-secondary); color:var(--brand-secondary);">Actually, let me reconsider</button>';
+        btnOutline('Maybe', 'Actually, let me reconsider');
     } else {
       inner = '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
         'Are you interested in mentoring?' +
         '</h2>' +
         '<p class="mb-6" style="color:var(--brand-text-muted);">Let us know and we\'ll be in touch when matching opens.</p>' +
         '<div class="flex flex-wrap justify-center gap-3">' +
-        '<button data-interest="Yes" class="px-6 py-3 rounded-lg font-semibold text-white" style="background:var(--brand-primary);">Yes, I\'m interested</button>' +
-        '<button data-interest="Maybe" class="px-6 py-3 rounded-lg font-semibold text-white" style="background:var(--brand-secondary);">Maybe</button>' +
-        '<button data-interest="Not Right Now" class="px-6 py-3 rounded-lg font-semibold border" style="border-color:var(--brand-border); color:var(--brand-text-muted);">Not right now</button>' +
+        btnPrimary('Yes', 'Yes, I\'m interested') +
+        btnSecondary('Maybe', 'Maybe') +
+        btnOutline('Not Right Now', 'Not right now') +
         '</div>';
     }
 
-    return '<section id="section-cta" class="mb-10 rounded-xl border-2 p-8 text-center" ' +
-      'style="background:var(--brand-surface); border-color:var(--brand-primary-light);">' +
+    return '<section id="section-cta" class="mb-10 p-8 sm:p-12 text-center" ' +
+      'style="background:#E6F8EB; border-radius:12px; border:1px solid #91CFAA;">' +
       inner +
       '</section>';
   }
@@ -353,45 +356,66 @@
   // ── HTML helpers ─────────────────────────────────────────────
 
   function section(title, bodyHtml) {
-    return '<section class="mb-10 bg-white rounded-xl shadow-sm border p-8" ' +
-      'style="border-color:var(--brand-border);">' +
+    return '<section class="mb-8 bg-white p-8" ' +
+      'style="border-radius:12px; border:1px solid #e8e8e8; box-shadow:0 1px 4px rgba(0,0,0,0.06);">' +
       '<h2 class="text-2xl font-bold mb-4" ' +
-      'style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
+      'style="font-family:var(--font-heading); color:#1A3C36;">' +
       title +
       '</h2>' +
-      '<div class="leading-relaxed" style="color:var(--brand-text);">' +
+      '<div class="leading-relaxed" style="color:#2a2a2a;">' +
       bodyHtml +
       '</div>' +
       '</section>';
   }
 
   function featureCard(title, body) {
-    return '<div class="rounded-lg p-5 border" ' +
-      'style="background:var(--brand-success-bg); border-color:var(--brand-primary-light);">' +
-      '<div class="font-semibold mb-1" style="color:var(--brand-primary-dark);">' + title + '</div>' +
-      '<p class="text-sm" style="color:var(--brand-text-muted);">' + body + '</p>' +
+    return '<div class="p-5" ' +
+      'style="background:#E6F8EB; border-radius:12px; border:1px solid #91CFAA;">' +
+      '<div class="font-semibold mb-1" style="color:#1A3C36; font-size:1rem;">' + title + '</div>' +
+      '<p class="text-sm" style="color:#4A4A4A;">' + body + '</p>' +
       '</div>';
   }
 
   function listItem(html) {
-    return '<li class="flex items-start gap-2">' +
-      '<span class="mt-1 font-bold" style="color:var(--brand-primary);">&#8226;</span>' +
+    return '<li class="flex items-start gap-3">' +
+      '<span class="mt-1.5 flex-shrink-0" style="width:8px;height:8px;border-radius:50%;background:#289A47;display:inline-block;"></span>' +
       '<span>' + html + '</span>' +
       '</li>';
   }
 
   function boundaryItem(text) {
     return '<li class="flex items-start gap-3">' +
-      '<span class="mt-0.5 font-bold" style="color:var(--brand-error);">&#10005;</span>' +
+      '<span class="font-bold flex-shrink-0" style="color:var(--brand-error); margin-top:2px;">&#10005;</span>' +
       '<span>' + utils.escapeHtml(text) + '</span>' +
       '</li>';
   }
 
   function whyItem(text) {
-    return '<li class="flex items-start gap-2 opacity-90">' +
-      '<span class="mt-1" style="color:var(--brand-primary-light);">&#10003;</span>' +
-      '<span>' + utils.escapeHtml(text) + '</span>' +
+    return '<li class="flex items-start gap-3">' +
+      '<span class="flex-shrink-0 font-bold" style="color:#FFC709; margin-top:2px;">&#10003;</span>' +
+      '<span style="color:#91CFAA;">' + utils.escapeHtml(text) + '</span>' +
       '</li>';
+  }
+
+  function btnPrimary(interest, label) {
+    return '<button data-interest="' + interest + '" ' +
+      'class="px-7 py-3 font-semibold" ' +
+      'style="background:#FFC709; color:#1A3C36; border-radius:30px; border:none; font-size:1rem;">' +
+      label + '</button>';
+  }
+
+  function btnSecondary(interest, label) {
+    return '<button data-interest="' + interest + '" ' +
+      'class="px-7 py-3 font-semibold" ' +
+      'style="background:#289A47; color:#ffffff; border-radius:30px; border:none; font-size:1rem;">' +
+      label + '</button>';
+  }
+
+  function btnOutline(interest, label) {
+    return '<button data-interest="' + interest + '" ' +
+      'class="px-7 py-3 font-semibold" ' +
+      'style="background:transparent; color:#1A3C36; border-radius:30px; border:2px solid #1A3C36; font-size:1rem;">' +
+      label + '</button>';
   }
 
   // ── UI state helpers ─────────────────────────────────────────
