@@ -82,6 +82,7 @@
       renderSupportAndCare(),
       renderBeyondOneToOne(),
       renderWhyThisMatters(),
+      renderApplySection(),
       renderCtaSection(contact),
     ].join('');
 
@@ -306,6 +307,39 @@
       '</section>';
   }
 
+  var EOI_MENTOR_URL = 'https://seednorthernrivers.org.au/mentor-eoi';
+  var EOI_MENTEE_URL = 'https://seednorthernrivers.org.au/mentee-eoi';
+
+  function renderApplySection() {
+    return '<section class="mb-10 p-8 sm:p-12" ' +
+      'style="background:#1A3C36; border-radius:12px;">' +
+      '<div class="max-w-2xl mx-auto text-center">' +
+      '<p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#FFC709;">Get Involved</p>' +
+      '<h2 class="text-2xl sm:text-3xl font-bold mb-3" ' +
+      'style="font-family:var(--font-heading); color:#ffffff;">' +
+      'Ready to join the program?' +
+      '</h2>' +
+      '<p class="mb-8" style="color:#91CFAA;">Whether you\'re looking for support or ready to offer it — we\'d love to hear from you.</p>' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">' +
+      '<a href="' + EOI_MENTEE_URL + '" ' +
+      'class="block px-6 py-5 font-semibold text-center" ' +
+      'style="background:#FFC709; color:#1A3C36; border-radius:12px; text-decoration:none; font-size:1rem;">' +
+      '<div class="text-2xl mb-2">&#127807;</div>' +
+      '<div class="font-bold text-lg mb-1">Apply as a Mentee</div>' +
+      '<div class="text-sm font-normal" style="color:#3a2a00;">I\'m a Changemaker looking for support</div>' +
+      '</a>' +
+      '<a href="' + EOI_MENTOR_URL + '" ' +
+      'class="block px-6 py-5 font-semibold text-center" ' +
+      'style="background:rgba(255,255,255,0.08); color:#ffffff; border-radius:12px; text-decoration:none; font-size:1rem; border:1px solid rgba(145,207,170,0.4);">' +
+      '<div class="text-2xl mb-2">&#127775;</div>' +
+      '<div class="font-bold text-lg mb-1">Apply as a Mentor</div>' +
+      '<div class="text-sm font-normal" style="color:#91CFAA;">I\'d like to volunteer as a mentor</div>' +
+      '</a>' +
+      '</div>' +
+      '</div>' +
+      '</section>';
+  }
+
   function renderCtaSection(contact) {
     var interest = contact ? (contact.mentorship_interest || '') : null;
     var inner = '';
@@ -321,7 +355,13 @@
         '<h2 class="text-2xl font-bold mb-2" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
         'You\'re in! We\'ve noted your interest.' +
         '</h2>' +
-        '<p class="mb-5" style="color:var(--brand-text-muted);">We\'ll be in touch when matching opens for the next cycle.</p>' +
+        '<p class="mb-6" style="color:var(--brand-text-muted);">If you haven\'t already, complete an expression of interest form below and we\'ll be in touch when matching opens.</p>' +
+        '<div class="flex flex-wrap justify-center gap-3 mb-5">' +
+        '<a href="' + EOI_MENTEE_URL + '" class="px-6 py-3 font-semibold" ' +
+        'style="background:#FFC709; color:#1A3C36; border-radius:30px; text-decoration:none; font-size:1rem;">Mentee EOI</a>' +
+        '<a href="' + EOI_MENTOR_URL + '" class="px-6 py-3 font-semibold" ' +
+        'style="background:#289A47; color:#ffffff; border-radius:30px; text-decoration:none; font-size:1rem;">Mentor EOI</a>' +
+        '</div>' +
         '<button data-interest="" class="text-sm underline" style="color:var(--brand-text-muted);">Change my response</button>';
     } else if (interest === 'Maybe') {
       inner = '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
