@@ -4,22 +4,23 @@
 <!-- All other fields use placeholder names — connect when client creates custom Contact fields -->
 
 <style>
-.meoi *{box-sizing:border-box;}
-.meoi{max-width:680px;margin:0 auto;padding:24px 16px;font-family:'Outfit',sans-serif;}
-.meoi input[type=text],.meoi input[type=email],.meoi input[type=tel],.meoi textarea{width:100%;padding:10px 14px;border:1px solid #91CFAA;border-radius:8px;font-size:14px;color:#2A2A2A;background:white;font-family:inherit;}
+.meoi *{box-sizing:border-box !important;}
+.meoi{max-width:620px;margin:0 auto;padding:24px 16px;font-family:'Outfit',sans-serif;}
+.meoi input[type=text],.meoi input[type=email],.meoi input[type=tel],.meoi textarea{width:100%;padding:9px 12px;border:1px solid #91CFAA;border-radius:8px;font-size:14px;color:#2A2A2A;background:white;font-family:inherit;}
 .meoi input:focus,.meoi textarea:focus{outline:none;border-color:#1A3C36;box-shadow:0 0 0 3px rgba(26,60,54,.1);}
 .meoi textarea{min-height:100px;resize:vertical;}
-.meoi .card{background:white;border-radius:12px;border:1px solid #91CFAA;padding:24px;margin-bottom:16px;}
-.meoi .stitle{font-size:17px;font-weight:700;color:#1A3C36;margin:0 0 18px;padding-bottom:8px;border-bottom:2px solid #E6F8EB;}
-.meoi .field{margin-bottom:16px;}
-.meoi .flabel{display:block;font-weight:600;color:#1A3C36;font-size:13px;margin-bottom:6px;}
+.meoi .card{background:white;border-radius:12px;border:1px solid #91CFAA;padding:20px;margin-bottom:16px;overflow:hidden;}
+.meoi .stitle{font-size:17px;font-weight:700;color:#1A3C36;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #E6F8EB;}
+.meoi .field{margin-bottom:14px;}
+.meoi .flabel{display:block;font-weight:600;color:#1A3C36;font-size:13px;margin-bottom:5px;}
 .meoi .hint{font-size:12px;color:#9ca3af;font-style:italic;margin-top:3px;}
 .meoi .cb,.meoi .rb{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;cursor:pointer;font-size:14px;color:#2A2A2A;}
 .meoi .cb input,.meoi .rb input{width:15px;height:15px;min-width:15px;margin-top:2px;accent-color:#1A3C36;cursor:pointer;}
 .meoi .sublabel{font-size:11px;font-weight:700;color:#289A47;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px;}
 .meoi .req{color:#dc2626;}
 .meoi .name-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:480px){.meoi .name-row{grid-template-columns:1fr;}}
+.meoi .name-row > *{min-width:0;}
+@media(max-width:540px){.meoi .name-row{grid-template-columns:1fr;}}
 </style>
 
 <div class="meoi">

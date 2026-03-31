@@ -4,22 +4,23 @@
 <!-- All other fields use placeholder names — connect when client creates custom Contact fields -->
 
 <style>
-.teoi *{box-sizing:border-box;}
-.teoi{max-width:680px;margin:0 auto;padding:24px 16px;font-family:'Outfit',sans-serif;}
-.teoi input[type=text],.teoi input[type=email],.teoi input[type=tel],.teoi textarea{width:100%;padding:10px 14px;border:1px solid #91CFAA;border-radius:8px;font-size:14px;color:#2A2A2A;background:white;font-family:inherit;}
+.teoi *{box-sizing:border-box !important;}
+.teoi{max-width:620px;margin:0 auto;padding:24px 16px;font-family:'Outfit',sans-serif;}
+.teoi input[type=text],.teoi input[type=email],.teoi input[type=tel],.teoi textarea{width:100%;padding:9px 12px;border:1px solid #91CFAA;border-radius:8px;font-size:14px;color:#2A2A2A;background:white;font-family:inherit;}
 .teoi input:focus,.teoi textarea:focus{outline:none;border-color:#1A3C36;box-shadow:0 0 0 3px rgba(26,60,54,.1);}
 .teoi textarea{min-height:100px;resize:vertical;}
-.teoi .card{background:white;border-radius:12px;border:1px solid #91CFAA;padding:24px;margin-bottom:16px;}
-.teoi .stitle{font-size:17px;font-weight:700;color:#1A3C36;margin:0 0 18px;padding-bottom:8px;border-bottom:2px solid #E6F8EB;}
-.teoi .field{margin-bottom:16px;}
-.teoi .flabel{display:block;font-weight:600;color:#1A3C36;font-size:13px;margin-bottom:6px;}
+.teoi .card{background:white;border-radius:12px;border:1px solid #91CFAA;padding:20px;margin-bottom:16px;overflow:hidden;}
+.teoi .stitle{font-size:17px;font-weight:700;color:#1A3C36;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #E6F8EB;}
+.teoi .field{margin-bottom:14px;}
+.teoi .flabel{display:block;font-weight:600;color:#1A3C36;font-size:13px;margin-bottom:5px;}
 .teoi .hint{font-size:12px;color:#9ca3af;font-style:italic;margin-top:3px;}
 .teoi .cb,.teoi .rb{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;cursor:pointer;font-size:14px;color:#2A2A2A;}
 .teoi .cb input,.teoi .rb input{width:15px;height:15px;min-width:15px;margin-top:2px;accent-color:#1A3C36;cursor:pointer;}
 .teoi .sublabel{font-size:11px;font-weight:700;color:#289A47;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px;}
 .teoi .req{color:#dc2626;}
 .teoi .name-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:480px){.teoi .name-row{grid-template-columns:1fr;}}
+.teoi .name-row > *{min-width:0;}
+@media(max-width:540px){.teoi .name-row{grid-template-columns:1fr;}}
 </style>
 
 <div class="teoi">
