@@ -74,8 +74,10 @@
       renderHero(contact),
       renderProgramIntro(),
       renderWhoItsFor(isEligible),
+      renderMenteeRoleDescription(),
       renderWhatMentoringLooksLike(),
       renderWhatMentorsOffer(),
+      renderMentorRoleDescription(),
       renderWhatMentoringIsNot(),
       renderSupportAndCare(),
       renderBeyondOneToOne(),
@@ -150,6 +152,61 @@
       listItem('Community resilience and regeneration') +
       '</ul>' +
       '<p class="text-sm" style="color:var(--brand-text-muted);">Mentoring may be extended to other Seed Northern Rivers member organisations as capacity allows. Participants typically range across a wide age spectrum and organisational stage — from early-stage initiatives to more established groups navigating growth, transition, or increased complexity.</p>'
+    );
+  }
+
+  function renderMenteeRoleDescription() {
+    return section(
+      'For Mentees: What to Expect',
+      '<p class="mb-5">As a mentee, you bring your real questions, current challenges, and genuine openness. Mentoring works best when you take an active role in shaping the relationship.</p>' +
+      '<h3 class="font-semibold mb-3 mt-5" style="color:#1A3C36; font-size:1.05rem;">What mentoring can help you with</h3>' +
+      '<ul class="space-y-3 mb-6">' +
+      listItem('Clarify your goals and priorities') +
+      listItem('Build confidence and trust in your own leadership') +
+      listItem('Reflect on your challenges and explore new perspectives') +
+      listItem('Strengthen your organisational foundations') +
+      listItem('Access light coaching and a thinking partner') +
+      listItem('Feel less alone in the work') +
+      '</ul>' +
+      '<h3 class="font-semibold mb-3 mt-5" style="color:#1A3C36; font-size:1.05rem;">What you bring as a mentee</h3>' +
+      '<ul class="space-y-3 mb-6">' +
+      listItem('<strong>Arrive prepared</strong> — come with a focus area, question, or update to each session') +
+      listItem('<strong>Be open and honest</strong> — your mentor can only help with what you share') +
+      listItem('<strong>Take an active role</strong> — the agenda is yours to lead') +
+      listItem('<strong>Follow through</strong> — act on what you commit to between sessions') +
+      listItem('<strong>Communicate openly</strong> — if something isn\'t working, say so') +
+      '</ul>' +
+      '<p class="text-sm" style="color:#4A4A4A;">Mentoring is not a passive experience — the more you bring to it, the more you\'ll get from it. Seed Northern Rivers is here to support the relationship from the background, not to direct it.</p>'
+    );
+  }
+
+  function renderMentorRoleDescription() {
+    return section(
+      'For Mentors: What\'s Involved',
+      '<p class="mb-5">Mentors are volunteers who give their time, experience, and care to support the next generation of changemakers. You don\'t need to have all the answers — your lived experience and genuine presence are what matter most.</p>' +
+      '<h3 class="font-semibold mb-3 mt-5" style="color:#1A3C36; font-size:1.05rem;">Your role as a mentor</h3>' +
+      '<ul class="space-y-3 mb-6">' +
+      listItem('Listen deeply and ask good questions') +
+      listItem('Share your experience, stories, and perspective') +
+      listItem('Help mentees make sense of complexity and find their own path') +
+      listItem('Offer light guidance and signpost relevant resources or networks') +
+      listItem('Provide accountability only where explicitly agreed') +
+      listItem('Hold the relationship with care, trust, and appropriate boundaries') +
+      '</ul>' +
+      '<h3 class="font-semibold mb-3 mt-5" style="color:#1A3C36; font-size:1.05rem;">Time commitment</h3>' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">' +
+      featureCard('3–6 Sessions', 'Typically 60–90 minutes each, spread across 1–6 months.') +
+      featureCard('Flexible Format', 'Online, in-person, or mixed — whatever works best for both of you.') +
+      featureCard('Mentee-Led Agenda', 'You support the direction — you don\'t set it.') +
+      featureCard('Renewable', 'By mutual agreement when both parties wish to continue.') +
+      '</div>' +
+      '<h3 class="font-semibold mb-3 mt-5" style="color:#1A3C36; font-size:1.05rem;">Support from Seed Northern Rivers</h3>' +
+      '<ul class="space-y-3">' +
+      listItem('Matching support to find a good fit') +
+      listItem('A brief onboarding conversation and orientation resources') +
+      listItem('Invitations to community gatherings across the mentoring cycle') +
+      listItem('A Seed coordinator available if anything comes up that you\'d like to discuss') +
+      '</ul>'
     );
   }
 
@@ -323,11 +380,12 @@
 
     utils.showPageLoader('Updating your interest\u2026');
 
-    _plugin
-      .switchTo('SeednrContact')
-      .mutation()
-      .update(_contactId, { mentorship_interest: value })
-      .execute()
+    var mut = _plugin.switchTo('SeednrContact').mutation();
+    mut.update(function (q) {
+      q.where('id', _contactId).set({ mentorship_interest: value });
+    });
+    mut
+      .execute(true)
       .toPromise()
       .then(function () {
         _contact = Object.assign({}, _contact, { mentorship_interest: value });

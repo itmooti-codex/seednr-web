@@ -1,0 +1,295 @@
+<!-- seednr-web — Mentee EOI Form -->
+<!-- Paste into an Ontraport HTML block on the Mentee EOI page -->
+<!-- Fields connected to Ontraport Contact record: firstname, lastname, email, office_phone, company_name -->
+<!-- All other fields use placeholder names — connect when client creates custom Contact fields -->
+
+<style>
+.teoi *{box-sizing:border-box;}
+.teoi{max-width:680px;margin:0 auto;padding:24px 16px;font-family:'Outfit',sans-serif;}
+.teoi input[type=text],.teoi input[type=email],.teoi input[type=tel],.teoi textarea{width:100%;padding:10px 14px;border:1px solid #91CFAA;border-radius:8px;font-size:14px;color:#2A2A2A;background:white;font-family:inherit;}
+.teoi input:focus,.teoi textarea:focus{outline:none;border-color:#1A3C36;box-shadow:0 0 0 3px rgba(26,60,54,.1);}
+.teoi textarea{min-height:100px;resize:vertical;}
+.teoi .card{background:white;border-radius:12px;border:1px solid #91CFAA;padding:24px;margin-bottom:16px;}
+.teoi .stitle{font-size:17px;font-weight:700;color:#1A3C36;margin:0 0 18px;padding-bottom:8px;border-bottom:2px solid #E6F8EB;}
+.teoi .field{margin-bottom:16px;}
+.teoi .flabel{display:block;font-weight:600;color:#1A3C36;font-size:13px;margin-bottom:6px;}
+.teoi .hint{font-size:12px;color:#9ca3af;font-style:italic;margin-top:3px;}
+.teoi .cb,.teoi .rb{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;cursor:pointer;font-size:14px;color:#2A2A2A;}
+.teoi .cb input,.teoi .rb input{width:15px;height:15px;min-width:15px;margin-top:2px;accent-color:#1A3C36;cursor:pointer;}
+.teoi .sublabel{font-size:11px;font-weight:700;color:#289A47;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px;}
+.teoi .req{color:#dc2626;}
+.teoi .name-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.teoi .name-row{grid-template-columns:1fr;}}
+</style>
+
+<div class="teoi">
+
+  <!-- Success state -->
+  <div id="teoi-success" style="display:none;background:#E6F8EB;border:1px solid #91CFAA;border-radius:12px;padding:40px;text-align:center;">
+    <div style="font-size:36px;margin-bottom:12px;">🌱</div>
+    <p style="font-size:20px;font-weight:700;color:#1A3C36;margin:0 0 8px;">Thank you for your interest!</p>
+    <p style="color:#4A4A4A;font-size:15px;margin:0;">A Seed NR coordinator will be in touch to discuss next steps.</p>
+  </div>
+
+  <!-- Hidden iframe captures Ontraport form POST response -->
+  <iframe name="teoi-target" style="display:none;width:0;height:0;border:0;"></iframe>
+
+  <form id="teoi-form" target="teoi-target"
+    action="https://app.ontraport.com/api/form/formRequest"
+    method="post" enctype="multipart/form-data">
+
+    <!-- Ontraport form identifiers -->
+    <input type="hidden" name="form_id" value="15">
+    <input type="hidden" name="uid" value="p2c258181f15">
+
+    <!-- Hero -->
+    <div style="background:#1A3C36;border-radius:12px;padding:28px 24px;margin-bottom:16px;">
+      <p style="color:#FFC709;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px;">Changemaker Collective</p>
+      <h2 style="color:white;font-size:22px;font-weight:800;margin:0 0 8px;line-height:1.2;">Mentee Expression of Interest</h2>
+      <p style="color:#91CFAA;font-size:14px;margin:0;line-height:1.5;">Tell us a little about yourself and what you're looking for. A Seed coordinator will be in touch to discuss next steps.</p>
+    </div>
+
+    <!-- Section: About you & your initiative -->
+    <div class="card">
+      <h3 class="stitle">About you & your initiative</h3>
+
+      <div class="field name-row">
+        <div>
+          <label class="flabel">First name <span class="req">*</span></label>
+          <!-- Connected: Contact.firstname -->
+          <input type="text" name="firstname" required placeholder="First name">
+        </div>
+        <div>
+          <label class="flabel">Last name <span class="req">*</span></label>
+          <!-- Connected: Contact.lastname -->
+          <input type="text" name="lastname" required placeholder="Last name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Email <span class="req">*</span></label>
+        <!-- Connected: Contact.email -->
+        <input type="email" name="email" required placeholder="your@email.com">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Phone <span class="req">*</span></label>
+        <!-- Connected: Contact.office_phone -->
+        <input type="tel" name="office_phone" required placeholder="0400 000 000">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Organisation / initiative name <span style="font-weight:400;color:#9ca3af;">(optional)</span></label>
+        <!-- Connected: Contact.company_name -->
+        <input type="text" name="company_name" placeholder="Your organisation or initiative">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Are you a current Seed Giving Circle grant recipient or Seed member? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentee_gc_status when custom field is created -->
+        <label class="rb"><input type="radio" name="mentee_gc_status" value="Seed Giving Circle current recipient" required><span>Yes — Seed Giving Circle current recipient</span></label>
+        <label class="rb"><input type="radio" name="mentee_gc_status" value="Seed Giving Circle applicant"><span>Seed Giving Circle applicant</span></label>
+        <label class="rb"><input type="radio" name="mentee_gc_status" value="Seed member"><span>Yes — Seed member (did not apply to Giving Circle)</span></label>
+        <label class="rb"><input type="radio" name="mentee_gc_status" value="None of the above"><span>None of the above</span></label>
+      </div>
+    </div>
+
+    <!-- Section: Your work & context -->
+    <div class="card">
+      <h3 class="stitle">Your work & context</h3>
+
+      <div class="field">
+        <label class="flabel">Briefly describe your organisation or initiative <span class="req">*</span></label>
+        <p class="hint">What are you working on, and who or what does it serve?</p>
+        <!-- Placeholder: connect to Contact.mentee_org_description when custom field is created -->
+        <textarea name="mentee_org_description" required></textarea>
+      </div>
+
+      <div class="field">
+        <label class="flabel">What stage best describes where you're at right now? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentee_org_stage when custom field is created -->
+        <label class="rb"><input type="radio" name="mentee_org_stage" value="Early idea / start-up" required><span>Early idea / start-up</span></label>
+        <label class="rb"><input type="radio" name="mentee_org_stage" value="Early delivery"><span>Early delivery</span></label>
+        <label class="rb"><input type="radio" name="mentee_org_stage" value="Growing or expanding"><span>Growing or expanding</span></label>
+        <label class="rb"><input type="radio" name="mentee_org_stage" value="Established but navigating change"><span>Established but navigating change</span></label>
+        <label class="rb"><input type="radio" name="mentee_org_stage" value="Other"><span>Other</span></label>
+      </div>
+    </div>
+
+    <!-- Section: What you're seeking support with -->
+    <div class="card">
+      <h3 class="stitle">What you're seeking support with</h3>
+
+      <div class="field">
+        <label class="flabel">What issue best describes what you're working on?</label>
+        <!-- Placeholder: connect to Contact.mentee_issue_area when custom field is created -->
+        <div class="sublabel">🌱 Place, environment & resilience</div>
+        <div id="teoi-issues">
+          <label class="cb"><input type="checkbox" value="Climate action & adaptation"><span>Climate action & adaptation</span></label>
+          <label class="cb"><input type="checkbox" value="Environmental protection, regeneration & biodiversity"><span>Environmental protection, regeneration & biodiversity</span></label>
+          <label class="cb"><input type="checkbox" value="Water, rivers & catchment health"><span>Water, rivers & catchment health</span></label>
+          <label class="cb"><input type="checkbox" value="Food systems & food security"><span>Food systems & food security</span></label>
+          <label class="cb"><input type="checkbox" value="Energy transition & resilience"><span>Energy transition & resilience</span></label>
+          <label class="cb"><input type="checkbox" value="Disaster preparedness, response & recovery"><span>Disaster preparedness, response & recovery</span></label>
+        </div>
+        <input type="hidden" name="mentee_issue_area" id="teoi-issues-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Which areas would you most value mentoring support in?</label>
+        <!-- Placeholder: connect to Contact.mentee_support_areas when custom field is created -->
+        <div class="sublabel">🌿 Community & people</div>
+        <div id="teoi-support-1">
+          <label class="cb"><input type="checkbox" value="Community building & engagement"><span>Community building & engagement</span></label>
+          <label class="cb"><input type="checkbox" value="First Nations–centred work (non-advisory)"><span>First Nations–centred work (non-advisory)</span></label>
+          <label class="cb"><input type="checkbox" value="Youth engagement & leadership"><span>Youth engagement & leadership</span></label>
+          <label class="cb"><input type="checkbox" value="Health, wellbeing & community care (non-clinical)"><span>Health, wellbeing & community care (non-clinical)</span></label>
+          <label class="cb"><input type="checkbox" value="Inclusion, accessibility & equity"><span>Inclusion, accessibility & equity</span></label>
+        </div>
+        <div class="sublabel">🌊 Leadership, organisations & systems</div>
+        <div id="teoi-support-2">
+          <label class="cb"><input type="checkbox" value="Preventing burnout & sustaining wellness"><span>Preventing burnout & sustaining wellness</span></label>
+          <label class="cb"><input type="checkbox" value="Organisational set-up & governance (non-board advisory)"><span>Organisational set-up & governance (non-board advisory)</span></label>
+          <label class="cb"><input type="checkbox" value="Leadership, decision-making & sustainability"><span>Leadership, decision-making & sustainability</span></label>
+          <label class="cb"><input type="checkbox" value="Partnerships, collaboration & coalition-building"><span>Partnerships, collaboration & coalition-building</span></label>
+          <label class="cb"><input type="checkbox" value="Navigating growth, change or transition"><span>Navigating growth, change or transition</span></label>
+        </div>
+        <div class="sublabel">🛠 Practical skills & delivery</div>
+        <div id="teoi-support-3">
+          <label class="cb"><input type="checkbox" value="Fundraising & grants"><span>Fundraising & grants</span></label>
+          <label class="cb"><input type="checkbox" value="Project planning & delivery"><span>Project planning & delivery</span></label>
+          <label class="cb"><input type="checkbox" value="Marketing, storytelling & communications"><span>Marketing, storytelling & communications</span></label>
+          <label class="cb"><input type="checkbox" value="Digital systems, IT & admin"><span>Digital systems, IT & admin</span></label>
+          <label class="cb"><input type="checkbox" value="Events & community initiatives"><span>Events & community initiatives</span></label>
+        </div>
+        <input type="hidden" name="mentee_support_areas" id="teoi-support-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">What would make this mentoring experience valuable for you? <span class="req">*</span></label>
+        <p class="hint">For example: clarity, confidence, skills, sense-making, next steps.</p>
+        <!-- Placeholder: connect to Contact.mentee_mentoring_goals when custom field is created -->
+        <textarea name="mentee_mentoring_goals" required></textarea>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Anything you'd particularly like support with — or prefer to avoid? <span style="font-weight:400;color:#9ca3af;">(optional)</span></label>
+        <!-- Placeholder: connect to Contact.mentee_preferences_notes when custom field is created -->
+        <textarea name="mentee_preferences_notes" style="min-height:80px;"></textarea>
+      </div>
+    </div>
+
+    <!-- Section: Practicalities -->
+    <div class="card">
+      <h3 class="stitle">Practicalities</h3>
+
+      <div class="field">
+        <label class="flabel">Preferred format</label>
+        <!-- Placeholder: connect to Contact.mentee_format when custom field is created -->
+        <div id="teoi-format">
+          <label class="cb"><input type="checkbox" value="In-person"><span>In-person</span></label>
+          <label class="cb"><input type="checkbox" value="Online"><span>Online</span></label>
+          <label class="cb"><input type="checkbox" value="A mix of both"><span>A mix of both</span></label>
+        </div>
+        <input type="hidden" name="mentee_format" id="teoi-format-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Availability</label>
+        <!-- Placeholder: connect to Contact.mentee_availability when custom field is created -->
+        <div id="teoi-avail">
+          <label class="cb"><input type="checkbox" value="Weekdays (business hours)"><span>Weekdays (business hours)</span></label>
+          <label class="cb"><input type="checkbox" value="Weekday evenings"><span>Weekday evenings</span></label>
+          <label class="cb"><input type="checkbox" value="Weekends"><span>Weekends</span></label>
+          <label class="cb"><input type="checkbox" value="Flexible"><span>Flexible</span></label>
+        </div>
+        <input type="hidden" name="mentee_availability" id="teoi-avail-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">How many sessions do you think would be most helpful?</label>
+        <!-- Placeholder: connect to Contact.mentee_session_preference when custom field is created -->
+        <label class="rb"><input type="radio" name="mentee_session_preference" value="3 sessions"><span>3 sessions</span></label>
+        <label class="rb"><input type="radio" name="mentee_session_preference" value="4–6 sessions"><span>4–6 sessions</span></label>
+        <label class="rb"><input type="radio" name="mentee_session_preference" value="Not sure"><span>Not sure — open to discussion</span></label>
+      </div>
+    </div>
+
+    <!-- Section: Care, boundaries & consent -->
+    <div class="card">
+      <h3 class="stitle">Care, boundaries & consent</h3>
+
+      <div class="field">
+        <label class="flabel">Comfortable with the scope and boundaries of the mentoring program? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentee_scope_consent when custom field is created -->
+        <label class="rb"><input type="radio" name="mentee_scope_consent" value="Yes" required><span>Yes</span></label>
+        <label class="rb"><input type="radio" name="mentee_scope_consent" value="I'd like to discuss further"><span>I'd like to discuss further</span></label>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Comfortable raising issues with your mentor and/or the Seed coordinator? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentee_coordinator_consent when custom field is created -->
+        <label class="rb"><input type="radio" name="mentee_coordinator_consent" value="Yes" required><span>Yes</span></label>
+        <label class="rb"><input type="radio" name="mentee_coordinator_consent" value="Maybe / would like more information"><span>Maybe / would like more information</span></label>
+      </div>
+
+      <div style="background:#E6F8EB;border-radius:8px;padding:16px;">
+        <!-- Placeholder: connect to Contact.mentee_program_consent when custom field is created -->
+        <label class="cb" style="align-items:flex-start;margin:0;">
+          <input type="checkbox" name="mentee_program_consent" value="1" required
+            style="width:15px;height:15px;min-width:15px;margin-top:2px;accent-color:#1A3C36;cursor:pointer;">
+          <span style="font-size:13px;color:#1A3C36;line-height:1.5;">
+            <strong>I understand this mentoring relationship is supportive and capacity-building</strong>, not operational delivery or crisis support, and I agree to participate in good faith. <span class="req">*</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" id="teoi-submit"
+      style="width:100%;padding:14px;background:#FFC709;color:#1A3C36;font-weight:700;font-size:16px;border:none;border-radius:30px;cursor:pointer;margin-top:8px;font-family:inherit;">
+      Submit Mentee EOI
+    </button>
+  </form>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var submitted = false;
+
+  function bindCheckboxes(groupIds, hiddenId) {
+    var hidden = document.getElementById(hiddenId);
+    var ids = [].concat(groupIds);
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('change', function () {
+        var vals = [];
+        ids.forEach(function (i) {
+          var g = document.getElementById(i);
+          if (g) Array.from(g.querySelectorAll('input:checked')).forEach(function (cb) { vals.push(cb.value); });
+        });
+        if (hidden) hidden.value = vals.join(', ');
+      });
+    });
+  }
+
+  bindCheckboxes('teoi-issues', 'teoi-issues-v');
+  bindCheckboxes(['teoi-support-1', 'teoi-support-2', 'teoi-support-3'], 'teoi-support-v');
+  bindCheckboxes('teoi-format', 'teoi-format-v');
+  bindCheckboxes('teoi-avail', 'teoi-avail-v');
+
+  document.getElementById('teoi-form').addEventListener('submit', function () {
+    submitted = true;
+    var btn = document.getElementById('teoi-submit');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+  });
+
+  document.querySelector('iframe[name="teoi-target"]').addEventListener('load', function () {
+    if (!submitted) return;
+    document.getElementById('teoi-form').style.display = 'none';
+    document.getElementById('teoi-success').style.display = 'block';
+  });
+}());
+</script>

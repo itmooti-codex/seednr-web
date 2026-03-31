@@ -1,0 +1,297 @@
+<!-- seednr-web — Mentor EOI Form -->
+<!-- Paste into an Ontraport HTML block on the Mentor EOI page -->
+<!-- Fields connected to Ontraport Contact record: firstname, lastname, email, office_phone, company_name -->
+<!-- All other fields use placeholder names — connect when client creates custom Contact fields -->
+
+<style>
+.meoi *{box-sizing:border-box;}
+.meoi{max-width:680px;margin:0 auto;padding:24px 16px;font-family:'Outfit',sans-serif;}
+.meoi input[type=text],.meoi input[type=email],.meoi input[type=tel],.meoi textarea{width:100%;padding:10px 14px;border:1px solid #91CFAA;border-radius:8px;font-size:14px;color:#2A2A2A;background:white;font-family:inherit;}
+.meoi input:focus,.meoi textarea:focus{outline:none;border-color:#1A3C36;box-shadow:0 0 0 3px rgba(26,60,54,.1);}
+.meoi textarea{min-height:100px;resize:vertical;}
+.meoi .card{background:white;border-radius:12px;border:1px solid #91CFAA;padding:24px;margin-bottom:16px;}
+.meoi .stitle{font-size:17px;font-weight:700;color:#1A3C36;margin:0 0 18px;padding-bottom:8px;border-bottom:2px solid #E6F8EB;}
+.meoi .field{margin-bottom:16px;}
+.meoi .flabel{display:block;font-weight:600;color:#1A3C36;font-size:13px;margin-bottom:6px;}
+.meoi .hint{font-size:12px;color:#9ca3af;font-style:italic;margin-top:3px;}
+.meoi .cb,.meoi .rb{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;cursor:pointer;font-size:14px;color:#2A2A2A;}
+.meoi .cb input,.meoi .rb input{width:15px;height:15px;min-width:15px;margin-top:2px;accent-color:#1A3C36;cursor:pointer;}
+.meoi .sublabel{font-size:11px;font-weight:700;color:#289A47;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px;}
+.meoi .req{color:#dc2626;}
+.meoi .name-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.meoi .name-row{grid-template-columns:1fr;}}
+</style>
+
+<div class="meoi">
+
+  <!-- Success state -->
+  <div id="meoi-success" style="display:none;background:#E6F8EB;border:1px solid #91CFAA;border-radius:12px;padding:40px;text-align:center;">
+    <div style="font-size:36px;margin-bottom:12px;">🌱</div>
+    <p style="font-size:20px;font-weight:700;color:#1A3C36;margin:0 0 8px;">Thank you for your interest!</p>
+    <p style="color:#4A4A4A;font-size:15px;margin:0;">A Seed NR coordinator will be in touch soon.</p>
+  </div>
+
+  <!-- Hidden iframe captures Ontraport form POST response -->
+  <iframe name="meoi-target" style="display:none;width:0;height:0;border:0;"></iframe>
+
+  <form id="meoi-form" target="meoi-target"
+    action="https://app.ontraport.com/api/form/formRequest"
+    method="post" enctype="multipart/form-data">
+
+    <!-- Ontraport form identifiers -->
+    <input type="hidden" name="form_id" value="14">
+    <input type="hidden" name="uid" value="p2c258181f14">
+
+    <!-- Hero -->
+    <div style="background:#1A3C36;border-radius:12px;padding:28px 24px;margin-bottom:16px;">
+      <p style="color:#FFC709;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px;">Changemaker Collective</p>
+      <h2 style="color:white;font-size:22px;font-weight:800;margin:0 0 8px;line-height:1.2;">Mentor Expression of Interest</h2>
+      <p style="color:#91CFAA;font-size:14px;margin:0;line-height:1.5;">Thank you for your interest in walking alongside a Changemaker. Fill in the form below and a Seed coordinator will be in touch.</p>
+    </div>
+
+    <!-- Section: About you -->
+    <div class="card">
+      <h3 class="stitle">About you</h3>
+
+      <div class="field name-row">
+        <div>
+          <label class="flabel">First name <span class="req">*</span></label>
+          <!-- Connected: Contact.firstname -->
+          <input type="text" name="firstname" required placeholder="First name">
+        </div>
+        <div>
+          <label class="flabel">Last name <span class="req">*</span></label>
+          <!-- Connected: Contact.lastname -->
+          <input type="text" name="lastname" required placeholder="Last name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Email <span class="req">*</span></label>
+        <!-- Connected: Contact.email -->
+        <input type="email" name="email" required placeholder="your@email.com">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Phone <span class="req">*</span></label>
+        <!-- Connected: Contact.office_phone -->
+        <input type="tel" name="office_phone" required placeholder="0400 000 000">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Organisation / affiliation <span style="font-weight:400;color:#9ca3af;">(optional)</span></label>
+        <!-- Connected: Contact.company_name -->
+        <input type="text" name="company_name" placeholder="Your organisation or group">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Your connection to Seed NR / the Giving Circle</label>
+        <!-- Placeholder: connect to Contact.mentor_seed_connection when custom field is created -->
+        <div id="meoi-connection">
+          <label class="cb"><input type="checkbox" value="Seed Giving Circle member"><span>Seed Giving Circle member</span></label>
+          <label class="cb"><input type="checkbox" value="Seed NR member organisation"><span>Seed NR member organisation</span></label>
+          <label class="cb"><input type="checkbox" value="Past collaborator / supporter"><span>Past collaborator / supporter</span></label>
+          <label class="cb"><input type="checkbox" value="Local community member"><span>Local community member</span></label>
+          <label class="cb"><input type="checkbox" value="Other"><span>Other</span></label>
+        </div>
+        <input type="hidden" name="mentor_seed_connection" id="meoi-connection-v">
+      </div>
+    </div>
+
+    <!-- Section: Experience & perspective -->
+    <div class="card">
+      <h3 class="stitle">Your experience & perspective</h3>
+
+      <div class="field">
+        <label class="flabel">Briefly describe your background and experience <span class="req">*</span></label>
+        <p class="hint">Professional experience, community leadership, lived experience, or skills developed over time.</p>
+        <!-- Placeholder: connect to Contact.mentor_background when custom field is created -->
+        <textarea name="mentor_background" required></textarea>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Issue areas you can offer mentoring support in</label>
+        <!-- Placeholder: connect to Contact.mentor_issue_areas when custom field is created -->
+        <div class="sublabel">🌱 Type of issues</div>
+        <div id="meoi-issues">
+          <label class="cb"><input type="checkbox" value="Climate action & adaptation"><span>Climate action & adaptation</span></label>
+          <label class="cb"><input type="checkbox" value="Environmental protection, regeneration & biodiversity"><span>Environmental protection, regeneration & biodiversity</span></label>
+          <label class="cb"><input type="checkbox" value="Water, rivers & catchment health"><span>Water, rivers & catchment health</span></label>
+          <label class="cb"><input type="checkbox" value="Food systems & food security"><span>Food systems & food security</span></label>
+          <label class="cb"><input type="checkbox" value="Energy transition & resilience"><span>Energy transition & resilience</span></label>
+          <label class="cb"><input type="checkbox" value="Disaster preparedness, response & recovery"><span>Disaster preparedness, response & recovery</span></label>
+          <label class="cb"><input type="checkbox" value="Other"><span>Other</span></label>
+        </div>
+        <input type="hidden" name="mentor_issue_areas" id="meoi-issues-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Skill areas you can offer mentoring support in</label>
+        <!-- Placeholder: connect to Contact.mentor_skill_areas when custom field is created -->
+        <div class="sublabel">🌿 Community & people</div>
+        <div id="meoi-skills-1">
+          <label class="cb"><input type="checkbox" value="Community building & engagement"><span>Community building & engagement</span></label>
+          <label class="cb"><input type="checkbox" value="First Nations–centred work (non-advisory)"><span>First Nations–centred work (non-advisory)</span></label>
+          <label class="cb"><input type="checkbox" value="Youth engagement & leadership"><span>Youth engagement & leadership</span></label>
+          <label class="cb"><input type="checkbox" value="Health, wellbeing & community care (non-clinical)"><span>Health, wellbeing & community care (non-clinical)</span></label>
+          <label class="cb"><input type="checkbox" value="Inclusion, accessibility & equity"><span>Inclusion, accessibility & equity</span></label>
+          <label class="cb"><input type="checkbox" value="HR – staff management"><span>HR – staff management</span></label>
+        </div>
+        <div class="sublabel">🌊 Leadership, organisations & systems</div>
+        <div id="meoi-skills-2">
+          <label class="cb"><input type="checkbox" value="Preventing burnout & sustaining wellness"><span>Preventing burnout & sustaining wellness</span></label>
+          <label class="cb"><input type="checkbox" value="Organisational set-up & governance (non-board advisory)"><span>Organisational set-up & governance (non-board advisory)</span></label>
+          <label class="cb"><input type="checkbox" value="Leadership, decision-making & sustainability"><span>Leadership, decision-making & sustainability</span></label>
+          <label class="cb"><input type="checkbox" value="Partnerships, collaboration & coalition-building"><span>Partnerships, collaboration & coalition-building</span></label>
+          <label class="cb"><input type="checkbox" value="Navigating growth, change or transition"><span>Navigating growth, change or transition</span></label>
+        </div>
+        <div class="sublabel">🛠 Practical skills & delivery</div>
+        <div id="meoi-skills-3">
+          <label class="cb"><input type="checkbox" value="Fundraising & grants"><span>Fundraising & grants</span></label>
+          <label class="cb"><input type="checkbox" value="Project planning & delivery"><span>Project planning & delivery</span></label>
+          <label class="cb"><input type="checkbox" value="Marketing, storytelling & communications"><span>Marketing, storytelling & communications</span></label>
+          <label class="cb"><input type="checkbox" value="Digital systems, IT & admin"><span>Digital systems, IT & admin</span></label>
+          <label class="cb"><input type="checkbox" value="Events & community initiatives"><span>Events & community initiatives</span></label>
+        </div>
+        <input type="hidden" name="mentor_skill_areas" id="meoi-skills-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">What draws you to being a Changemaker Collective Mentor? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentor_motivation when custom field is created -->
+        <textarea name="mentor_motivation" required></textarea>
+      </div>
+    </div>
+
+    <!-- Section: Availability & preferences -->
+    <div class="card">
+      <h3 class="stitle">Availability & preferences</h3>
+
+      <div class="field">
+        <label class="flabel">How many sessions are you comfortable committing to? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentor_session_capacity when custom field is created -->
+        <label class="rb"><input type="radio" name="mentor_session_capacity" value="3 sessions" required><span>3 sessions (minimum commitment)</span></label>
+        <label class="rb"><input type="radio" name="mentor_session_capacity" value="4–6 sessions"><span>4–6 sessions</span></label>
+        <label class="rb"><input type="radio" name="mentor_session_capacity" value="Ongoing"><span>Ongoing – depending on fit</span></label>
+        <label class="rb"><input type="radio" name="mentor_session_capacity" value="Not sure"><span>Not sure — open to discussion</span></label>
+      </div>
+
+      <div class="field">
+        <label class="flabel">How many mentees at one time? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentor_mentee_count when custom field is created -->
+        <label class="rb"><input type="radio" name="mentor_mentee_count" value="One" required><span>One</span></label>
+        <label class="rb"><input type="radio" name="mentor_mentee_count" value="Two"><span>Two</span></label>
+        <label class="rb"><input type="radio" name="mentor_mentee_count" value="Depends on time commitment"><span>Depends on time commitment</span></label>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Preferred format</label>
+        <!-- Placeholder: connect to Contact.mentor_format when custom field is created -->
+        <div id="meoi-format">
+          <label class="cb"><input type="checkbox" value="In-person"><span>In-person</span></label>
+          <label class="cb"><input type="checkbox" value="Online"><span>Online</span></label>
+          <label class="cb"><input type="checkbox" value="A mix of both"><span>A mix of both</span></label>
+        </div>
+        <input type="hidden" name="mentor_format" id="meoi-format-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Preferred timing / availability</label>
+        <!-- Placeholder: connect to Contact.mentor_availability when custom field is created -->
+        <div id="meoi-avail">
+          <label class="cb"><input type="checkbox" value="Weekdays (business hours)"><span>Weekdays (business hours)</span></label>
+          <label class="cb"><input type="checkbox" value="Weekday evenings"><span>Weekday evenings</span></label>
+          <label class="cb"><input type="checkbox" value="Weekends"><span>Weekends</span></label>
+          <label class="cb"><input type="checkbox" value="Flexible"><span>Flexible</span></label>
+        </div>
+        <input type="hidden" name="mentor_availability" id="meoi-avail-v">
+      </div>
+
+      <div class="field">
+        <label class="flabel">Anything you'd like to support or prefer to avoid? <span style="font-weight:400;color:#9ca3af;">(optional)</span></label>
+        <!-- Placeholder: connect to Contact.mentor_preferences_notes when custom field is created -->
+        <textarea name="mentor_preferences_notes" style="min-height:80px;"></textarea>
+      </div>
+    </div>
+
+    <!-- Section: Care, boundaries & consent -->
+    <div class="card">
+      <h3 class="stitle">Care, boundaries & consent</h3>
+
+      <div class="field">
+        <label class="flabel">Comfortable with the scope and boundaries of the mentoring program? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentor_scope_consent when custom field is created -->
+        <label class="rb"><input type="radio" name="mentor_scope_consent" value="Yes" required><span>Yes</span></label>
+        <label class="rb"><input type="radio" name="mentor_scope_consent" value="No"><span>No</span></label>
+        <label class="rb"><input type="radio" name="mentor_scope_consent" value="I'd like to discuss further"><span>I'd like to discuss further</span></label>
+      </div>
+
+      <div class="field">
+        <label class="flabel">Comfortable contacting the Seed coordinator if issues arise? <span class="req">*</span></label>
+        <!-- Placeholder: connect to Contact.mentor_coordinator_consent when custom field is created -->
+        <label class="rb"><input type="radio" name="mentor_coordinator_consent" value="Yes" required><span>Yes</span></label>
+        <label class="rb"><input type="radio" name="mentor_coordinator_consent" value="No"><span>No</span></label>
+        <label class="rb"><input type="radio" name="mentor_coordinator_consent" value="Maybe / would like more information"><span>Maybe / would like more information</span></label>
+      </div>
+
+      <div style="background:#E6F8EB;border-radius:8px;padding:16px;">
+        <!-- Placeholder: connect to Contact.mentor_program_consent when custom field is created -->
+        <label class="cb" style="align-items:flex-start;margin:0;">
+          <input type="checkbox" name="mentor_program_consent" value="1" required
+            style="width:15px;height:15px;min-width:15px;margin-top:2px;accent-color:#1A3C36;cursor:pointer;">
+          <span style="font-size:13px;color:#1A3C36;line-height:1.5;">
+            <strong>I understand this is a voluntary mentoring role</strong> and agree to participate in good faith, with care, confidentiality and respect. <span class="req">*</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" id="meoi-submit"
+      style="width:100%;padding:14px;background:#FFC709;color:#1A3C36;font-weight:700;font-size:16px;border:none;border-radius:30px;cursor:pointer;margin-top:8px;font-family:inherit;">
+      Submit Mentor EOI
+    </button>
+  </form>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var submitted = false;
+
+  function bindCheckboxes(groupIds, hiddenId) {
+    var hidden = document.getElementById(hiddenId);
+    var ids = [].concat(groupIds);
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('change', function () {
+        var vals = [];
+        ids.forEach(function (i) {
+          var g = document.getElementById(i);
+          if (g) Array.from(g.querySelectorAll('input:checked')).forEach(function (cb) { vals.push(cb.value); });
+        });
+        if (hidden) hidden.value = vals.join(', ');
+      });
+    });
+  }
+
+  bindCheckboxes('meoi-connection', 'meoi-connection-v');
+  bindCheckboxes('meoi-issues', 'meoi-issues-v');
+  bindCheckboxes(['meoi-skills-1', 'meoi-skills-2', 'meoi-skills-3'], 'meoi-skills-v');
+  bindCheckboxes('meoi-format', 'meoi-format-v');
+  bindCheckboxes('meoi-avail', 'meoi-avail-v');
+
+  document.getElementById('meoi-form').addEventListener('submit', function () {
+    submitted = true;
+    var btn = document.getElementById('meoi-submit');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+  });
+
+  document.querySelector('iframe[name="meoi-target"]').addEventListener('load', function () {
+    if (!submitted) return;
+    document.getElementById('meoi-form').style.display = 'none';
+    document.getElementById('meoi-success').style.display = 'block';
+  });
+}());
+</script>
