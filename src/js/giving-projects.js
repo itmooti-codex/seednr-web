@@ -52,21 +52,29 @@
       name: 'The Paddock Project',
       description: 'Expands sustainable gardening programs building community resilience through syntropic food gardens.',
       website: 'https://www.paddockproject.com/',
+      imageSrc: '',
+      imageAlt: 'The Paddock Project',
     },
     {
       name: 'Surfers for Climate',
       description: 'Action-research with Indigenous leadership on coastal regeneration and climate care.',
       website: 'https://surfersforclimate.org.au/',
+      imageSrc: '',
+      imageAlt: 'Surfers for Climate',
     },
     {
       name: 'Mullum Food Coop',
       description: 'Converts tarp-material food delivery bags into durable shopping bags, diverting plastic waste from landfills.',
       website: 'https://www.mullumfoodcoop.com/',
+      imageSrc: '',
+      imageAlt: 'Mullum Food Coop',
     },
     {
       name: 'Young Farmers Connect',
       description: 'Offers regenerative farming workshops connecting young and small-scale farmers.',
       website: 'https://www.youngfarmersconnect.com/',
+      imageSrc: '',
+      imageAlt: 'Young Farmers Connect',
     },
   ];
 
@@ -167,32 +175,44 @@
   }
 
   function renderShortlistedProjects() {
-    var items = SHORTLISTED_PROJECTS.map(function (p) {
+    var cards = SHORTLISTED_PROJECTS.map(function (p) {
+      var imageHtml = p.imageSrc
+        ? '<img src="' + p.imageSrc + '" alt="' + utils.escapeHtml(p.imageAlt) + '" ' +
+          'style="width:100%; height:100%; object-fit:cover;" ' +
+          'onerror="this.style.display=\'none\'; this.parentElement.style.background=\'#E6F8EB\';" />'
+        : '';
+
       var websiteLink = p.website
-        ? ' <a href="' + p.website + '" target="_blank" rel="noopener noreferrer" ' +
-          'class="text-sm font-medium" ' +
-          'style="color:#289A47; text-decoration:none; white-space:nowrap;">' +
+        ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" ' +
+          'class="inline-flex items-center gap-1 text-sm font-medium mt-4" ' +
+          'style="color:#289A47; text-decoration:none;">' +
           'Visit website ↗' +
           '</a>'
         : '';
 
-      return '<li class="flex items-start gap-4 pb-5" style="border-bottom:1px solid #f0f0f0;">' +
-        '<span class="flex-shrink-0 mt-1" style="width:10px;height:10px;border-radius:50%;background:#289A47;display:inline-block;"></span>' +
-        '<div>' +
-        '<span class="font-semibold" style="color:#1A3C36;">' + utils.escapeHtml(p.name) + '</span>' +
-        '<span class="mx-2 text-gray-300">—</span>' +
-        '<span class="text-sm" style="color:#2a2a2a;">' + utils.escapeHtml(p.description) + '</span>' +
+      return '<div class="bg-white overflow-hidden" ' +
+        'style="border-radius:12px; border:1px solid #e8e8e8; box-shadow:0 1px 4px rgba(0,0,0,0.06);">' +
+        '<div style="height:160px; overflow:hidden; background:#E6F8EB;">' +
+        imageHtml +
+        '</div>' +
+        '<div class="p-6">' +
+        '<h3 class="font-bold mb-2" style="font-family:var(--font-heading); color:#1A3C36; font-size:1.1rem;">' +
+        utils.escapeHtml(p.name) +
+        '</h3>' +
+        '<p class="text-sm leading-relaxed" style="color:#2a2a2a;">' +
+        utils.escapeHtml(p.description) +
+        '</p>' +
         websiteLink +
         '</div>' +
-        '</li>';
+        '</div>';
     }).join('');
 
     return section(
       'Shortlisted Projects — Mentoring Recipients',
       '<p class="mb-6">All seven shortlisted projects will receive mentoring and capacity-building support from Seed Northern Rivers as part of our commitment to nurturing the people behind the change.</p>' +
-      '<ul class="space-y-4">' +
-      items +
-      '</ul>'
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">' +
+      cards +
+      '</div>'
     );
   }
 
