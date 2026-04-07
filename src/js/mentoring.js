@@ -41,7 +41,6 @@
         'first_name',
         'last_name',
         'email',
-        'mentorship_interest',
         'Giving_Circle_Donated',
         'date_became_giving_circle_member',
         'Affiliation_id',
@@ -76,10 +75,7 @@
       renderWhoItsFor(isEligible),
       renderMentorRoleDescription(),
       renderApplySection(),
-      renderCtaSection(contact),
     ].join('');
-
-    bindCtaButtons();
   }
 
   function checkEligibility(contact) {
@@ -210,117 +206,6 @@
       '</section>';
   }
 
-  function renderCtaSection(contact) {
-    var interest = contact ? (contact.mentorship_interest || '') : null;
-    var inner = '';
-
-    if (!contact) {
-      inner = '<h2 class="text-2xl font-bold mb-3" ' +
-        'style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
-        'Interested in mentoring?' +
-        '</h2>' +
-        '<p style="color:var(--brand-text-muted);">Sign in to your Seed Northern Rivers account to register your interest.</p>';
-    } else if (interest === 'Yes') {
-      inner = '<div class="text-4xl mb-3">&#127807;</div>' +
-        '<h2 class="text-2xl font-bold mb-2" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
-        'You\'re in! We\'ve noted your interest.' +
-        '</h2>' +
-        '<p class="mb-6" style="color:var(--brand-text-muted);">If you haven\'t already, complete an expression of interest form below and we\'ll be in touch when matching opens.</p>' +
-        '<div class="flex flex-wrap justify-center gap-3 mb-5">' +
-        '<a href="' + EOI_MENTEE_URL + '" class="px-6 py-3 font-semibold" ' +
-        'style="background:#FFC709; color:#1A3C36; border-radius:30px; text-decoration:none; font-size:1rem;">Mentee EOI</a>' +
-        '<a href="' + EOI_MENTOR_URL + '" class="px-6 py-3 font-semibold" ' +
-        'style="background:#289A47; color:#ffffff; border-radius:30px; text-decoration:none; font-size:1rem;">Mentor EOI</a>' +
-        '</div>' +
-        '<button data-interest="" class="text-sm underline" style="color:var(--brand-text-muted);">Change my response</button>';
-    } else if (interest === 'Maybe') {
-      inner = '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
-        'We understand — no pressure.' +
-        '</h2>' +
-        '<p class="mb-6" style="color:var(--brand-text-muted);">If you\'d like to confirm or step back, just let us know.</p>' +
-        '<div class="flex flex-wrap justify-center gap-3">' +
-        btnPrimary('Yes', 'Yes, count me in') +
-        btnOutline('Not Right Now', 'Not right now') +
-        '</div>';
-    } else if (interest === 'Not Right Now') {
-      inner = '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
-        'No problem — thanks for letting us know.' +
-        '</h2>' +
-        '<p class="mb-6" style="color:var(--brand-text-muted);">The program will still be here when the time is right.</p>' +
-        btnOutline('Maybe', 'Actually, let me reconsider');
-    } else {
-      inner = '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:var(--brand-primary-dark);">' +
-        'Are you interested in mentoring?' +
-        '</h2>' +
-        '<p class="mb-6" style="color:var(--brand-text-muted);">Let us know and we\'ll be in touch when matching opens.</p>' +
-        '<div class="flex flex-wrap justify-center gap-3">' +
-        btnPrimary('Yes', 'Yes, I\'m interested') +
-        btnSecondary('Maybe', 'Maybe') +
-        btnOutline('Not Right Now', 'Not right now') +
-        '</div>';
-    }
-
-    return '<section id="section-cta" class="mb-10 p-8 sm:p-12 text-center" ' +
-      'style="background:#E6F8EB; border-radius:12px; border:1px solid #91CFAA;">' +
-      inner +
-      '</section>';
-  }
-
-  // ── CTA interaction ───────────────────────────────────────────
-
-  function bindCtaButtons() {
-    var ctaSection = utils.byId('section-cta');
-    if (!ctaSection) return;
-
-    ctaSection.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-interest]');
-      if (!btn) return;
-      var value = btn.getAttribute('data-interest');
-      if (value === '') {
-        _contact = Object.assign({}, _contact, { mentorship_interest: '' });
-        rerenderCta();
-      } else {
-        updateInterest(value);
-      }
-    });
-  }
-
-  function updateInterest(value) {
-    if (!_contactId || !_plugin) return;
-
-    utils.showPageLoader('Updating your interest\u2026');
-
-    var mut = _plugin.switchTo('SeednrContact').mutation();
-    mut.update(function (q) {
-      q.where('id', _contactId).set({ mentorship_interest: value });
-    });
-    mut
-      .execute(true)
-      .toPromise()
-      .then(function () {
-        _contact = Object.assign({}, _contact, { mentorship_interest: value });
-        rerenderCta();
-        utils.showToast('Your interest has been updated.', 'success');
-      })
-      .catch(function (err) {
-        utils.showToast('Something went wrong. Please try again.', 'error');
-        console.error('Interest update failed:', err);
-      })
-      .finally(function () {
-        utils.hidePageLoader();
-      });
-  }
-
-  function rerenderCta() {
-    var old = utils.byId('section-cta');
-    if (!old) return;
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = renderCtaSection(_contact);
-    var newSection = wrapper.firstElementChild;
-    old.parentNode.replaceChild(newSection, old);
-    bindCtaButtons();
-  }
-
   // ── HTML helpers ─────────────────────────────────────────────
 
   function section(title, bodyHtml) {
@@ -349,41 +234,6 @@
       '<span class="mt-1.5 flex-shrink-0" style="width:8px;height:8px;border-radius:50%;background:#289A47;display:inline-block;"></span>' +
       '<span>' + html + '</span>' +
       '</li>';
-  }
-
-  function boundaryItem(text) {
-    return '<li class="flex items-start gap-3">' +
-      '<span class="font-bold flex-shrink-0" style="color:var(--brand-error); margin-top:2px;">&#10005;</span>' +
-      '<span>' + utils.escapeHtml(text) + '</span>' +
-      '</li>';
-  }
-
-  function whyItem(text) {
-    return '<li class="flex items-start gap-3">' +
-      '<span class="flex-shrink-0 font-bold" style="color:#FFC709; margin-top:2px;">&#10003;</span>' +
-      '<span style="color:#91CFAA;">' + utils.escapeHtml(text) + '</span>' +
-      '</li>';
-  }
-
-  function btnPrimary(interest, label) {
-    return '<button data-interest="' + interest + '" ' +
-      'class="px-7 py-3 font-semibold" ' +
-      'style="background:#FFC709; color:#1A3C36; border-radius:30px; border:none; font-size:1rem;">' +
-      label + '</button>';
-  }
-
-  function btnSecondary(interest, label) {
-    return '<button data-interest="' + interest + '" ' +
-      'class="px-7 py-3 font-semibold" ' +
-      'style="background:#289A47; color:#ffffff; border-radius:30px; border:none; font-size:1rem;">' +
-      label + '</button>';
-  }
-
-  function btnOutline(interest, label) {
-    return '<button data-interest="' + interest + '" ' +
-      'class="px-7 py-3 font-semibold" ' +
-      'style="background:transparent; color:#1A3C36; border-radius:30px; border:2px solid #1A3C36; font-size:1rem;">' +
-      label + '</button>';
   }
 
   // ── UI state helpers ─────────────────────────────────────────
