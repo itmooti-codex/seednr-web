@@ -225,11 +225,16 @@
       'Why the Seed Giving Circle Exists' +
       '</h2>' +
       '<p class="text-lg max-w-2xl mx-auto mb-4" style="color:#91CFAA;">' +
-      '&ldquo;The people closest to the work — and the place — are often best placed to decide what\'s needed.&rdquo;' +
+      'Because the people closest to the work — and the place — are often best placed to decide what\'s needed.' +
       '</p>' +
-      '<p class="max-w-xl mx-auto" style="color:#91CFAA; opacity:0.85;">' +
-      'A community-led alternative grounded in trust, transparency, and care for the Northern Rivers.' +
+      '<p class="max-w-xl mx-auto mb-8" style="color:#91CFAA; opacity:0.85;">' +
+      'The Seed Giving Circle offers a community-led alternative to top-down philanthropy, grounded in trust, transparency and care for the Northern Rivers.' +
       '</p>' +
+      '<a href="https://seednorthernrivers.org.au/giving-circle" ' +
+      'class="inline-block px-10 py-4 font-bold text-lg" ' +
+      'style="background:#FFC709; color:#1A3C36; border-radius:30px; text-decoration:none;">' +
+      'Join the Seed Giving Circle' +
+      '</a>' +
       '</section>';
   }
 
