@@ -112,7 +112,7 @@
 
   function renderAboutRound() {
     return section(
-      'About the 2026 Grant Round',
+      'About the 2025 Grant Round',
       '<p>This year, Seed Giving Circle members awarded grants from seven shortlisted Northern Rivers initiatives — chosen from 28 applications reviewed by an independent Grants Committee.</p>' +
       '<p class="mt-4">Applications were assessed against criteria including environmental impact, community leadership, inclusion, collaboration, systems thinking, and readiness to deliver. Members then voted to determine the top three recipients.</p>' +
       '<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">' +
