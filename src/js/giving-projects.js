@@ -100,7 +100,7 @@
       '<p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#FFC709;">Seed Giving Circle</p>' +
       '<h1 class="font-bold leading-tight mb-5" ' +
       'style="font-family:var(--font-heading); font-size:clamp(2.2rem,5vw,3.5rem); color:#ffffff;">' +
-      'Shortlisted Projects<br>2025 Grant Round' +
+      'Shortlisted Projects<br>2026 Grant Round' +
       '</h1>' +
       '<div style="width:48px;height:3px;background:#FFC709;margin:0 auto 1.5rem;border-radius:2px;"></div>' +
       '<p class="text-lg sm:text-xl" style="color:#91CFAA; max-width:600px; margin:0 auto;">' +
