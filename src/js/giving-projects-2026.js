@@ -16,6 +16,24 @@
   // 'winners' = grants announced: winners first, remaining shortlisted below
   var STAGE = 'voting';
 
+  // A page can force a stage without a code change, so the winners layout can be
+  // previewed on its own Ontraport draft page before the winners are known:
+  //   footer:  <script>window.GIVING_PROJECTS_STAGE = 'winners';</script>
+  //   or URL:  ?stage=winners
+  var stageOverride = window.GIVING_PROJECTS_STAGE ||
+    (window.location.search.match(/[?&]stage=(voting|winners)\b/) || [])[1];
+  if (stageOverride === 'voting' || stageOverride === 'winners') STAGE = stageOverride;
+
+  // Shown in the winners layout until the real winners are filled in.
+  var WINNER_PLACEHOLDERS = [1, 2, 3].map(function () {
+    return {
+      name: 'Winner to be announced',
+      description: 'This project will be announced once Seed Giving Circle voting closes.',
+      label: 'Grant winner',
+      placeholder: true,
+    };
+  });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -165,6 +183,8 @@
   ];
 
   var GIVING_CIRCLE_URL = 'https://seednorthernrivers.org.au/giving-circle';
+  // Members sign in here (emailed login link), open the 2026 round and press Vote Now.
+  var VOTE_URL = 'https://grants.seednorthernrivers.org.au';
 
   // ── Render ───────────────────────────────────────────────────
 
@@ -177,13 +197,14 @@
       ? [
           renderHero('Grant Winners<br>' + r.year + ' Grant Round', 'Community-led funding for Northern Rivers changemakers'),
           renderAboutCurrent(),
-          renderWinners('Grant winners', r.winners),
+          renderWinners('Grant winners', r.winners.length ? r.winners : WINNER_PLACEHOLDERS),
           renderShortlisted('Grant shortlisted', r.shortlisted, shortlistedNote()),
         ]
       : [
           renderHero('Shortlisted Projects<br>' + r.year + ' Grant Round', 'Seed Giving Circle members are now voting'),
           renderAboutCurrent(),
           renderShortlisted('The shortlisted projects', r.shortlisted, null),
+          renderVoteBanner(),
         ];
 
     parts.push(renderPastRounds(), renderWhyWeExist());
@@ -213,17 +234,14 @@
     var appsText = r.applications ? r.applications + ' applications' : 'this year\'s applications';
     var stats = (r.applications ? statCard(String(r.applications), 'Applications Reviewed') : '') +
       statCard(String(n || 7), 'Shortlisted Projects') +
-      statCard(STAGE === 'winners' ? String(r.winners.length) : '3', STAGE === 'winners' ? 'Grants Awarded' : 'Grants to Award');
+      statCard(STAGE === 'winners' ? String(r.winners.length || 3) : '3', STAGE === 'winners' ? 'Grants Awarded' : 'Grants to Award');
 
     var body = STAGE === 'winners'
       ? '<p>Seed Giving Circle members have voted, and three Northern Rivers projects will receive grants this round. They were chosen from seven shortlisted initiatives, selected from ' + appsText + ' by an independent Grants Committee.</p>'
       : '<p>An independent Grants Committee reviewed ' + appsText + ' against criteria including environmental impact, community leadership, inclusion, collaboration, systems thinking, and readiness to deliver. These seven projects made the shortlist.</p>' +
         '<p class="mt-4">Seed Giving Circle members are now voting to decide which projects receive this round\'s grants. Every Giving Circle member gets a vote.</p>';
 
-    var cta = STAGE === 'voting'
-      ? '<p class="mt-6"><a href="' + GIVING_CIRCLE_URL + '" class="inline-block px-6 py-3 font-bold" ' +
-        'style="background:#FFC709; color:#1A3C36; border-radius:30px; text-decoration:none;">Join the Giving Circle to vote</a></p>'
-      : '';
+    var cta = STAGE === 'voting' ? voteButtons() : '';
 
     return section(
       'About the ' + r.year + ' Grant Round',
@@ -231,6 +249,24 @@
       '<div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">' + stats + '</div>' +
       cta
     );
+  }
+
+  function voteButtons() {
+    return '<div class="mt-6 flex flex-wrap gap-3">' +
+      '<a href="' + VOTE_URL + '" target="_blank" rel="noopener" class="inline-block px-6 py-3 font-bold" ' +
+      'style="background:#FFC709; color:#1A3C36; border-radius:30px; text-decoration:none;">Members: cast your vote</a>' +
+      '<a href="' + GIVING_CIRCLE_URL + '" class="inline-block px-6 py-3 font-bold" ' +
+      'style="border:2px solid #1A3C36; color:#1A3C36; border-radius:30px; text-decoration:none;">Not a member? Join the Giving Circle</a>' +
+      '</div>';
+  }
+
+  function renderVoteBanner() {
+    return '<section class="mb-8 p-8 text-center text-white" style="background:#1A3C36; border-radius:12px;">' +
+      '<h2 class="text-2xl font-bold mb-3" style="font-family:var(--font-heading); color:#ffffff;">Giving Circle members, have your say</h2>' +
+      '<p class="mb-6" style="color:#91CFAA;">Sign in to the Giving Circle portal with your email, open the ' + CURRENT_ROUND.year + ' Grant Round and press Vote Now.</p>' +
+      '<a href="' + VOTE_URL + '" target="_blank" rel="noopener" class="inline-block px-6 py-3 font-bold" ' +
+      'style="background:#FFC709; color:#1A3C36; border-radius:30px; text-decoration:none;">Cast your vote</a>' +
+      '</section>';
   }
 
   function shortlistedNote() {
@@ -324,10 +360,10 @@
   // ── HTML helpers ─────────────────────────────────────────────
 
   function projectCard(p, isWinner) {
-    var badge = isWinner && p.amount
+    var badge = isWinner && (p.amount || p.label)
       ? '<span class="inline-block px-3 py-1 text-xs font-semibold mb-3" ' +
         'style="background:#FFC709; color:#1A3C36; border-radius:20px;">' +
-        utils.escapeHtml(p.label + ': ' + p.amount) +
+        utils.escapeHtml(p.amount ? p.label + ': ' + p.amount : p.label) +
         '</span>'
       : '';
 
