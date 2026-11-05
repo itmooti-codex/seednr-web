@@ -94,7 +94,7 @@
         project: null,
         description: "Six hands-on working bees on Saltwater Creek, Mullumbimby, across 2027. Together we'll pull invasive purple taro, plant a native canopy that shades it out for good, and grow a community of creek carers restoring a flood-prone waterway on Bundjalung Country.",
         website: null,
-        imageSrc: "https://itmooti-codex.github.io/seednr-web/images/giving-2026/scat.jpg",
+        imageSrc: "https://itmooti-codex.github.io/seednr-web/images/giving-2026/scat-team.jpg",
         imageAlt: "Saltwater Creek Action Team (SCAT)",
       },
       {
