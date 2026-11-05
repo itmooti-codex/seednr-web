@@ -51,7 +51,8 @@
         project: null,
         description: "This grant will help with startup costs and repair and restoration of the nursery space, including irrigation, tables, gravel, water tanks and associated infrastructure.",
         website: "https://generousearth.com.au",
-        imageSrc: null,
+        imageSrc: "https://itmooti-codex.github.io/seednr-web/images/giving-2026/generous-earth.jpg",
+        imageAlt: "Generous Earth Co-op",
       },
       {
         name: "Institute of Deep Ecology, Northern Rivers",
@@ -79,14 +80,16 @@
         project: null,
         description: "Our events involve a lot of time in remote areas, so having our staff equipped and trained to handle emergency situations is important, while elevating First Nations elders is necessary in shifting cultural paradigms towards honouring and protecting the earth.",
         website: null,
-        imageSrc: null,
+        imageSrc: "https://itmooti-codex.github.io/seednr-web/images/giving-2026/bushcraft-village.jpg",
+        imageAlt: "The Bushcraft Village",
       },
       {
         name: "The Elder Tree & Mullumbimby Men's Shed",
         project: "Plants, People & Place: Educational Signage at Mullum Gardens Eco Hub",
         description: "Bundjalung art and language, hand-built signs and hands-on learning materials that turn The Elder Tree's Educational Medicine Garden and the Men's Shed at Mullum Gardens Eco Hub into a free, self-guided outdoor classroom, made by both groups' volunteers.",
         website: "https://www.theeldertree.org",
-        imageSrc: null,
+        imageSrc: "https://itmooti-codex.github.io/seednr-web/images/giving-2026/elder-tree.jpg",
+        imageAlt: "The Elder Tree & Mullumbimby Men's Shed",
       },
     ],
   };
